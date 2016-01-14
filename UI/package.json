@@ -1,0 +1,25 @@
+{
+  "name": "bitly",
+  "version": "1.0.0",
+  "description": "URL Shortener",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "http": "0.0.0",
+    "nodemailer": "0.7.1",
+    "request": "^2.65.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://sagarbhoite@bitbucket.org/sagarbhoite/bitly-ui.git"
+  },
+  "author": "Sagar",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/sagarbhoite/bitly-ui#readme"
+}

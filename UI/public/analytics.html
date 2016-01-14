@@ -1,0 +1,100 @@
+<!DOCTYPE>
+<html ng-app="myApp">
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+	
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+
+	<style type="text/css">
+		.title	{
+		    background-color: #000;
+		    color: #fff;
+		}
+		.border {
+			border: 1px solid #eee;
+		}
+		.subtitle {
+			background-color: #eee;
+		}
+		.rightColumn { width: 10%; }
+		.middleColumn { width: 38%; }
+		.leftColumn { width: 52%; }
+	</style>
+	<title>nanoUrl</title>
+</head>
+<body ng-controller="AppCtrl">
+	<div class="container">
+		<h1>nanoUrl: Analytics</h1>
+		<br/>
+
+		<form name="analyticsForm">
+			<table class="table">
+				<tr class="title">
+					<th class="leftColumn">Long URL</th>
+					<th class="middleColumn">Shortened URL</th>
+					<th class="rightColumn">Hit Count</th>
+				</tr>
+				<tbody ng-repeat="(index, mainData) in analyticsData" ng-init="IsAnalyticsVisible=[]">
+					<tr>
+						<td><a href="{{mainData.longURL}}" target="_blank"><span alt="{{mainData.longURL}}" title="{{mainData.longURL}}">{{((mainData.longURL).length>60)?((mainData.longURL).substring(0, 60)+"..."):(mainData.longURL)}}</span></a></td>
+						<td><a href="http://nanourl.elasticbeanstalk.com/{{mainData.shortURL}}" target="_blank"><span alt="http://nanourl.elasticbeanstalk.com/{{mainData.shortURL}}" title="http://nanourl.elasticbeanstalk.com/{{mainData.shortURL}}">http://nanourl.elasticbeanstalk.com/{{mainData.shortURL}}</span></a></td>
+						<td><a href="" ng-click="showDetails(mainData.shortURL)"><span alt="{{mainData.count}}" title="{{mainData.count}}">{{mainData.count}}</span></a></td>
+					</tr>
+					<tr ng-show="mainData.shortURL==analyticsCheck" class="subtitle border">
+						<td class="border" colspan="3"><b>Browser Specific Data</b></td>
+					</tr>
+					<tr ng-repeat="(index, data) in clientBrowser" ng-show="mainData.shortURL==analyticsCheck" class="border">
+						<td class="border" colspan="2">{{data.clientBrowser}}</td>
+						<td class="border">{{data.count}}</td>
+					</tr>
+					<tr ng-show="mainData.shortURL==analyticsCheck" class="subtitle border">
+						<td class="border" colspan="3"><b>Country Specific Data</td>
+					</tr>
+					<tr ng-repeat="(index, data) in clientCountry" ng-show="mainData.shortURL==analyticsCheck" class="border">
+						<td class="border" colspan="2">{{data.clientCountry}}</td>
+						<td class="border">{{data.count}}</td>
+					</tr>
+					<tr ng-show="mainData.shortURL==analyticsCheck" class="subtitle border">
+						<td class="border" colspan="3"><b>Device Specific Data</td>
+					</tr>
+					<tr ng-repeat="(index, data) in clientDevice" ng-show="mainData.shortURL==analyticsCheck" class="border">
+						<td class="border" colspan="2">{{data.clientDevice}}</td>
+						<td class="border">{{data.count}}</td>
+					</tr>
+					<tr id="typeData" ng-show="mainData.shortURL==analyticsCheck && typeData" class="subtitle border">
+						<td class="border" colspan="3"><b>Device Type Specific Data</td>
+					</tr>
+					<tr ng-repeat="(index, data) in clientDeviceType" ng-show="mainData.shortURL==analyticsCheck" class="border">
+						<td class="border" colspan="2">{{data.clientDeviceType}}</td>
+						<td class="border">{{data.count}}</td>
+					</tr>
+					<tr ng-show="mainData.shortURL==analyticsCheck" class="subtitle border">
+						<td class="border" colspan="3"><b>IP Specific Data</td>
+					</tr>
+					<tr ng-repeat="(index, data) in clientIP" ng-show="mainData.shortURL==analyticsCheck" class="border">
+						<td class="border" colspan="2">{{data.clientIP}}</td>
+						<td class="border">{{data.count}}</td>
+					</tr>
+					<tr ng-show="mainData.shortURL==analyticsCheck" class="subtitle border">
+						<td class="border" colspan="3"><b>OS Specific Data</td>
+					</tr>
+					<tr ng-repeat="(index, data) in clientOS" ng-show="mainData.shortURL==analyticsCheck" class="border">
+						<td class="border" colspan="2">{{data.clientOS}}</td>
+						<td class="border">{{data.count}}</td>
+					</tr>
+					<tr ng-show="mainData.shortURL==analyticsCheck">
+						<td colspan="3">&nbsp;</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="controllers/controller.js"></script>
+</body>
+</html>
